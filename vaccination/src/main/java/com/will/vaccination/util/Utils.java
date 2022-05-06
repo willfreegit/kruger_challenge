@@ -1,4 +1,4 @@
-package com.will.vaccination.utils;
+package com.will.vaccination.util;
 
 public class Utils {
 

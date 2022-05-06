@@ -1,6 +1,6 @@
 package com.will.vaccination.person.application;
 
-import com.will.vaccination.utils.Utils;
+import com.will.vaccination.util.Utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

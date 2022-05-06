@@ -1,4 +1,4 @@
-package com.will.vaccination.exceptions;
+package com.will.vaccination.exception;
 
 public class RequiredFieldException extends Exception{
     public RequiredFieldException(){
