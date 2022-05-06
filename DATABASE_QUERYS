@@ -1,6 +1,18 @@
-CREATE USER KRUGER;
-ALTER USER KRUGER WITH ENCRYPTED PASSWORD 'krug3r_ch@ll3ng3';
-CREATE DATABASE CHALLENGE;
-GRANT ALL PRIVILEGES ON DATABASE CHALLENGE TO KRUGER;
+CREATE USER kruger;
+ALTER USER kruger WITH ENCRYPTED PASSWORD 'krug3r_ch@ll3ng3';
+CREATE DATABASE challenge;
+GRANT ALL PRIVILEGES ON DATABASE challenge TO kruger;
 
+
+create table person(
+   identification varchar(20) primary key,
+   name varchar(50) not null,
+   lastname varchar(50) not null,
+   email varchar(50) not null,
+   birthdate date,
+   address varchar(50),
+   phonenumber varchar(20),
+   fromdate timestamp,
+   todate timestamp
+);
 
