@@ -3,12 +3,15 @@ package com.will.vaccination.person.infrastructure;
 import com.will.vaccination.person.application.PersonService;
 import com.will.vaccination.person.application.ValidatePersonInputData;
 import com.will.vaccination.person.domain.Person;
+import com.will.vaccination.security.application.UserService;
+import com.will.vaccination.user.domain.Users;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +21,10 @@ import java.util.List;
 @RequestMapping("/person")
 public class PersonController {
     private PersonService personService;
+    private UserService userService;
 
     @GetMapping("/getAllPersons")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @ApiOperation(value = "Get all persons on database only from admin test")
     public ResponseEntity<List<Person>> getAllPersons() {
         return new ResponseEntity<>(personService.findAll(), HttpStatus.OK);
@@ -48,6 +53,41 @@ public class PersonController {
             }
         }
         personService.insertPerson(person);
+        Users user = new Users();
+        user.setUsername(person.getIdentification());
+        user.setPassword(person.getIdentification());
+        userService.saveUser(user);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/updatePerson")
+    @ApiOperation(value = "Update person information: birthdate, address, cellphone number and ")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Person created"),
+            @ApiResponse(code = 400, message = "The request object doesn't passed the validations")
+    })
+    public ResponseEntity updatePerson(@RequestBody Person person) {
+        personService.insertPerson(person);
+        Users user = new Users();
+        user.setUsername(person.getIdentification());
+        user.setPassword(person.getIdentification());
+        userService.saveUser(user);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @PostMapping("/addAdmin")
+    @ApiOperation(value = "Add a new admin with required fields: country, identification, name, lastname and email." +
+            "NO IMPLEMENT THIS API IN THE CLIENT SIDE, IS JUST TO ADD A NEW ADMIN...")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Person created")
+    })
+    public ResponseEntity addAdmin(@RequestBody Person person) {
+        personService.insertPerson(person);
+        Users user = new Users();
+        user.setUsername(person.getIdentification());
+        user.setPassword(person.getIdentification());
+        userService.saveUser(user);
+
         return new ResponseEntity(HttpStatus.CREATED);
     }
 }

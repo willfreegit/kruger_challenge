@@ -35,7 +35,7 @@ public class PersonWebLayerTest {
 
     @Test
     public void getAllPersonTest() throws Exception{
-        Person person = new Person("010","aaa","bbb","xxx",null,null,null,null,null);
+        Person person = new Person("010","aaa","bbb","xxx",null,null,null);
         when(personController.getAllPersons()).thenReturn(new ResponseEntity(Arrays.asList(person), HttpStatus.OK));
         this.mockMvc.perform(get("/person/getAllPersons"))
                 .andExpect(status().isOk())

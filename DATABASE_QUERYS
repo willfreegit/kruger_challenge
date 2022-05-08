@@ -3,7 +3,6 @@ ALTER USER kruger WITH ENCRYPTED PASSWORD 'krug3r_ch@ll3ng3';
 CREATE DATABASE challenge;
 GRANT ALL PRIVILEGES ON DATABASE challenge TO kruger;
 
-
 create table person(
    identification varchar(20) primary key,
    name varchar(50) not null,
@@ -11,8 +10,36 @@ create table person(
    email varchar(50) not null,
    birthdate date,
    address varchar(50),
-   phonenumber varchar(20),
-   fromdate timestamp,
-   todate timestamp
+   phonenumber varchar(20)
 );
 
+GRANT ALL PRIVILEGES ON TABLE person TO kruger;
+
+create table roles(
+   id int primary key,
+   name varchar(20) not null
+);
+insert into roles(id, name) values (1, 'ROLE_ADMIN');
+insert into roles(id, name) values (2, 'ROLE_USER');
+
+GRANT ALL PRIVILEGES ON TABLE roles TO kruger;
+
+create table users(
+   username varchar(25) primary key,
+   password varchar(100) not null,
+   oldpassword varchar(100)
+);
+
+GRANT ALL PRIVILEGES ON TABLE users TO kruger;
+
+create table vaccine(
+  id int primary key,
+  name varchar(50) not null
+);
+
+insert into vaccine(id, name) values(1, 'Sputnik');
+insert into vaccine(id, name) values(2, 'AstraZeneca');
+insert into vaccine(id, name) values(3, 'Pfizer');
+insert into vaccine(id, name) values(4, 'Jhonson&Jhonson');
+
+GRANT ALL PRIVILEGES ON TABLE vaccine TO kruger;

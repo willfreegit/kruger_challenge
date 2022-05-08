@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -43,11 +44,5 @@ public class Person {
     @Column(name="phonenumber")
     @ApiModelProperty(notes = "EMPLOYEE ROLE: Valid email", example = "0999999999")
     private String phonenumber;
-    @Column(name="fromdate")
-    @ApiModelProperty(notes = "AUTOMATIC VALUE FIELD... DON'T SEND")
-    private Timestamp fromdate = new Timestamp(System.currentTimeMillis());
-    @Column(name="todate")
-    @ApiModelProperty(notes = "AUTOMATIC VALUE FIELD... DON'T SEND")
-    private Timestamp todate = Timestamp.valueOf("9999-12-31 00:00:00");
 
 }
