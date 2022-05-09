@@ -43,3 +43,17 @@ insert into vaccine(id, name) values(3, 'Pfizer');
 insert into vaccine(id, name) values(4, 'Jhonson&Jhonson');
 
 GRANT ALL PRIVILEGES ON TABLE vaccine TO kruger;
+
+create table vaccine_person(
+  vaccine_id int not null,
+  identification varchar(20) not null,
+  number_of_vaccine int not null,
+  date_of_vaccine date not null
+);
+
+ALTER TABLE ONLY vaccine_person ADD CONSTRAINT "PK_PERSON" PRIMARY KEY (vaccine_id, identification);
+ALTER TABLE vaccine_person ADD CONSTRAINT fk_vaccine FOREIGN KEY (vaccine_id) REFERENCES vaccine (id);
+ALTER TABLE vaccine_person ADD CONSTRAINT fk_identification FOREIGN KEY (identification) REFERENCES person (identification);
+
+GRANT ALL PRIVILEGES ON TABLE vaccine_person TO kruger;
+

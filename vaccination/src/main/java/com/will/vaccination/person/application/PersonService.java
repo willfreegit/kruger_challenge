@@ -1,23 +1,17 @@
 package com.will.vaccination.person.application;
 
+import com.will.vaccination.exception.EmployeeNotFoundException;
 import com.will.vaccination.person.domain.Person;
-import com.will.vaccination.person.domain.PersonRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
-@Service
-@AllArgsConstructor
-public class PersonService {
-
-    private PersonRepository personRepository;
-    public boolean insertPerson(Person person) {
-        personRepository.save(person);
-        return true;
-    }
-
-    public List<Person> findAll(){
-        return personRepository.findAll();
-    }
+public interface PersonService {
+    public boolean insertPerson(Person person);
+    public List<Person> findAll();
+    public Person findById(String id);
+    public List<Person> findVaccinatedPerson();
+    public List<Person> findNoVaccinatedPerson();
+    public List<Person> findByVaccineType(long type);
+    public List<Person> findByVaccineDate(Date finicio, Date ffin);
 }
