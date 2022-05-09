@@ -51,7 +51,7 @@ create table vaccine_person(
   date_of_vaccine date not null
 );
 
-ALTER TABLE ONLY vaccine_person ADD CONSTRAINT "PK_PERSON" PRIMARY KEY (vaccine_id, identification);
+ALTER TABLE ONLY vaccine_person ADD CONSTRAINT "PK_PERSON" PRIMARY KEY (vaccine_id, identification,number_of_vaccine);
 ALTER TABLE vaccine_person ADD CONSTRAINT fk_vaccine FOREIGN KEY (vaccine_id) REFERENCES vaccine (id);
 ALTER TABLE vaccine_person ADD CONSTRAINT fk_identification FOREIGN KEY (identification) REFERENCES person (identification);
 
