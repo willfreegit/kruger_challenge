@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -27,21 +28,21 @@ public class PersonController {
     private VaccineService vaccineService;
 
     @GetMapping("/getAllPersons")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ApiOperation(value = "Get all persons on database only from admin test")
     public ResponseEntity<List<Person>> getAllPersons() {
         return new ResponseEntity<>(personService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/getPersonsById/{id}")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ApiOperation(value = "Get person by identification")
     public ResponseEntity<List<Person>> getPersonsById(@PathVariable String id) {
         return new ResponseEntity(personService.findById(id), HttpStatus.OK);
     }
 
     @GetMapping("/getPersonsByStateOfVaccine/{state}")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ApiOperation(value = "Get person by state of vaccine")
     public ResponseEntity<List<Person>> getPersonsByStateOfVaccine(@PathVariable String state) {
         if("YES".equals(state)){
@@ -52,7 +53,7 @@ public class PersonController {
     }
 
     @GetMapping("/getPersonsByVaccineType/{type}")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ApiOperation(value = "Get person by state of vaccine")
     public ResponseEntity<List<Person>> getPersonsByVaccineType(@PathVariable long type) {
         return new ResponseEntity(personService.findByVaccineType(type), HttpStatus.OK);
@@ -60,7 +61,7 @@ public class PersonController {
     }
 
     @GetMapping("/getPersonsByVaccineDate/{finicio}/{ffin}")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ApiOperation(value = "Get person by state of vaccine")
     public ResponseEntity<List<Person>> getPersonsByVaccineType(@PathVariable Date finicio, @PathVariable Date ffin) {
         return new ResponseEntity(personService.findByVaccineDate(finicio, ffin), HttpStatus.OK);
@@ -68,6 +69,7 @@ public class PersonController {
     }
 
     @PostMapping("/addPerson")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ApiOperation(value = "Add a new person with required fields: identification, name, lastname and email")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Person created"),
@@ -98,6 +100,7 @@ public class PersonController {
     }
 
     @PutMapping("/updatePerson")
+    @PreAuthorize("hasAuthority('USER')")
     @ApiOperation(value = "Update person information: birthdate, address, cellphone number and ")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Person updated"),

@@ -8,7 +8,7 @@ Se despliega la API:.../person/addAdmin que recibe un parametro de tipo Persona 
 La seguridad esta implementa con jwt, con el nuevo usuario administrador se puede llamar a la API: .../api/login
 pasandole como parametros el username y password del usuario administrador para obtener el access_token.
 
-Con el access token se puede acceder al resto de ws... estoy en proceso de implementar validacion por roles aún.
+Con el access token se puede acceder al resto de los end point y usar el rol user o admin dependiendo del servicio.
 
 
 
